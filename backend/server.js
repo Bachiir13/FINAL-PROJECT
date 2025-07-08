@@ -3,6 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const xssClean = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
+const http = require("http");
+const { Server } = require("socket.io");
 
 const contactRoutes = require("./routes/contacts.routes");
 const actualiteRoutes = require("./routes/actualite.routes");
@@ -13,12 +19,29 @@ const pedagogieRoutes = require("./routes/pedagogie.routes");
 const userRoutes = require("./routes/user.routes");
 const temoignageRoutes = require("./routes/temoignage.routes");
 const inscriptionFormationRoutes = require('./routes/inscriptionformation.routes');
+const messagesRoutes = require('./routes/messages.routes');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-/* ---------- Middlewares ---------- */
-app.use(cors());
+/* ---------- Sécurité : middlewares ---------- */
+app.use(helmet());
+app.use(cors({
+  origin: process.env.CLIENT_URL || "*",
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization"
+}));
+app.use(xssClean());
+app.use(mongoSanitize());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(limiter);
+
 app.use(bodyParser.json());
 
 /* ---------- Routes principales ---------- */
@@ -33,6 +56,7 @@ app.use("/pedagogies", pedagogieRoutes);
 app.use("/users", userRoutes);
 app.use("/temoignages", temoignageRoutes);
 app.use("/inscriptionformations", inscriptionFormationRoutes);
+app.use("/messages", messagesRoutes);
 
 /* ---------- Route reCAPTCHA ---------- */
 app.post('/verify-captcha', async (req, res) => {
@@ -65,7 +89,45 @@ app.post('/verify-captcha', async (req, res) => {
   }
 });
 
+/* ---------- Serveur HTTP & Socket.io ---------- */
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL || "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+// Gestion des connexions Socket.io
+io.on("connection", (socket) => {
+  console.log(`Utilisateur connecté: ${socket.id}`);
+
+  // Exemple : gestion d’une room utilisateur pour recevoir les messages ciblés
+  socket.on("joinRoom", (userId) => {
+    socket.join(userId);
+    console.log(`Utilisateur ${userId} a rejoint sa room.`);
+  });
+
+  // Exemple : réception d’un message et retransmission au destinataire
+  socket.on("sendMessage", ({ senderId, receiverId, message }) => {
+    console.log(`Message de ${senderId} à ${receiverId} : ${message}`);
+
+    // TODO: Sauvegarder message dans la BDD ici si besoin
+
+    // Emission vers la room du destinataire (s’il est connecté)
+    io.to(receiverId).emit("receiveMessage", {
+      senderId,
+      message,
+      timestamp: new Date(),
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`Utilisateur déconnecté: ${socket.id}`);
+  });
+});
+
 /* ---------- Démarrage du serveur ---------- */
-app.listen(port, () => {
-  console.log(`✅ Serveur démarré : http://localhost:${port}`);
+server.listen(port, () => {
+  console.log(`✅ Serveur démarré avec Socket.io : http://localhost:${port}`);
 });

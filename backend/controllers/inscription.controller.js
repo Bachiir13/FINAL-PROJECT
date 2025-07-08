@@ -1,11 +1,11 @@
-const pool = require('../config/db'); // connexion à la BDD
+const pool = require('../config/db');
 
 exports.getAll = async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM inscription_cours');
     res.json(result.rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
 
@@ -17,11 +17,10 @@ exports.getById = async (req, res) => {
     }
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
 
-// Retourne les élèves inscrits à un cours donné
 exports.getElevesByCours = async (req, res) => {
   const { coursId } = req.params;
   try {
@@ -34,7 +33,7 @@ exports.getElevesByCours = async (req, res) => {
     );
     res.json(result.rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
 
@@ -42,7 +41,6 @@ exports.create = async (req, res) => {
   const { eleve_id, cours_id } = req.body;
 
   try {
-    // Vérifier si déjà inscrit
     const exists = await pool.query(
       'SELECT * FROM inscription_cours WHERE eleve_id = $1 AND cours_id = $2',
       [eleve_id, cours_id]
@@ -59,7 +57,7 @@ exports.create = async (req, res) => {
 
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: 'Erreur lors de l\'inscription.' });
   }
 };
 
@@ -71,6 +69,6 @@ exports.delete = async (req, res) => {
     }
     res.json({ message: 'Inscription supprimée avec succès' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
