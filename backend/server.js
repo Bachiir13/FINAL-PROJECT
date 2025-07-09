@@ -10,6 +10,10 @@ const mongoSanitize = require("express-mongo-sanitize");
 const http = require("http");
 const { Server } = require("socket.io");
 
+// Import pool PostgreSQL
+const pool = require("./db");
+
+// Tes routes (pas modifiées)
 const contactRoutes = require("./routes/contacts.routes");
 const actualiteRoutes = require("./routes/actualite.routes");
 const coursRoutes = require("./routes/cours.routes");
@@ -24,7 +28,7 @@ const messagesRoutes = require('./routes/messages.routes');
 const app = express();
 const port = process.env.PORT || 3001;
 
-/* ---------- Sécurité : middlewares ---------- */
+/* Sécurité */
 app.use(helmet());
 app.use(cors({
   origin: process.env.CLIENT_URL || "*",
@@ -44,7 +48,7 @@ app.use(limiter);
 
 app.use(bodyParser.json());
 
-/* ---------- Routes principales ---------- */
+/* Routes */
 app.get("/", (_, res) => res.send("🚀 API TechEcole en ligne"));
 
 app.use("/contacts", contactRoutes);
@@ -58,13 +62,10 @@ app.use("/temoignages", temoignageRoutes);
 app.use("/inscriptionformations", inscriptionFormationRoutes);
 app.use("/messages", messagesRoutes);
 
-/* ---------- Route reCAPTCHA ---------- */
+/* reCAPTCHA */
 app.post('/verify-captcha', async (req, res) => {
   const { token } = req.body;
-
-  if (!token) {
-    return res.status(400).json({ success: false, message: "Token reCAPTCHA manquant." });
-  }
+  if (!token) return res.status(400).json({ success: false, message: "Token reCAPTCHA manquant." });
 
   const secretKey = process.env.RECAPTCHA_SECRET;
   const verificationURL = `https://www.google.com/recaptcha/api/siteverify`;
@@ -75,21 +76,18 @@ app.post('/verify-captcha', async (req, res) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `secret=${secretKey}&response=${token}`
     });
-
     const data = await response.json();
 
-    if (data.success) {
-      res.status(200).json({ success: true });
-    } else {
-      res.status(400).json({ success: false, errors: data["error-codes"] });
-    }
+    if (data.success) res.status(200).json({ success: true });
+    else res.status(400).json({ success: false, errors: data["error-codes"] });
+
   } catch (error) {
     console.error("❌ Erreur reCAPTCHA :", error);
     res.status(500).json({ success: false, message: "Erreur serveur lors de la vérification reCAPTCHA." });
   }
 });
 
-/* ---------- Serveur HTTP & Socket.io ---------- */
+/* Serveur HTTP + Socket.io */
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -98,28 +96,39 @@ const io = new Server(server, {
   },
 });
 
-// Gestion des connexions Socket.io
+// Socket.io connection
 io.on("connection", (socket) => {
   console.log(`Utilisateur connecté: ${socket.id}`);
 
-  // Exemple : gestion d’une room utilisateur pour recevoir les messages ciblés
+  // L'utilisateur rejoint une room correspondant à son userId (string)
   socket.on("joinRoom", (userId) => {
-    socket.join(userId);
+    socket.join(userId.toString());
     console.log(`Utilisateur ${userId} a rejoint sa room.`);
   });
 
-  // Exemple : réception d’un message et retransmission au destinataire
-  socket.on("sendMessage", ({ senderId, receiverId, message }) => {
+  // Quand un message est envoyé
+  socket.on("sendMessage", async ({ senderId, receiverId, message }) => {
     console.log(`Message de ${senderId} à ${receiverId} : ${message}`);
 
-    // TODO: Sauvegarder message dans la BDD ici si besoin
+    try {
+      // Sauvegarde en base
+      const result = await pool.query(
+        `INSERT INTO messages (sender_id, receiver_id, message) VALUES ($1, $2, $3) RETURNING *`,
+        [senderId, receiverId, message]
+      );
 
-    // Emission vers la room du destinataire (s’il est connecté)
-    io.to(receiverId).emit("receiveMessage", {
-      senderId,
-      message,
-      timestamp: new Date(),
-    });
+      const savedMessage = result.rows[0];
+
+      // On émet le message vers la room du destinataire
+      io.to(receiverId.toString()).emit("receiveMessage", savedMessage);
+
+      // Et on notifie aussi l'expéditeur que son message a bien été envoyé (utile pour confirmation ou mise à jour UI)
+      io.to(senderId.toString()).emit("messageSent", savedMessage);
+
+    } catch (error) {
+      console.error("Erreur insertion message BDD :", error);
+      socket.emit("errorMessage", { error: "Erreur serveur lors de l'envoi du message." });
+    }
   });
 
   socket.on("disconnect", () => {
@@ -127,7 +136,7 @@ io.on("connection", (socket) => {
   });
 });
 
-/* ---------- Démarrage du serveur ---------- */
+/* Démarrage serveur */
 server.listen(port, () => {
   console.log(`✅ Serveur démarré avec Socket.io : http://localhost:${port}`);
 });
