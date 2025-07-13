@@ -8,5 +8,8 @@ router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
 router.post('/', controller.create);
 router.delete('/:id', controller.delete);
+// Route pour récupérer les inscriptions d'un élève par son id
+router.get('/eleve/:eleveId', controller.getInscriptionsByEleve);
+
 
 module.exports = router;
