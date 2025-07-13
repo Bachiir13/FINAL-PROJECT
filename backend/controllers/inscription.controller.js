@@ -21,6 +21,20 @@ exports.getById = async (req, res) => {
   }
 };
 
+// Nouvelle fonction pour récupérer les inscriptions d'un élève
+exports.getInscriptionsByEleve = async (req, res) => {
+  const { eleveId } = req.params;
+  try {
+    const result = await pool.query(
+      'SELECT * FROM inscription_cours WHERE eleve_id = $1',
+      [eleveId]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+};
+
 exports.getElevesByCours = async (req, res) => {
   const { coursId } = req.params;
   try {
