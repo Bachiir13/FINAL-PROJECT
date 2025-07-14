@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+ h2, h5 {
+  color: #1f2937;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+
+/* -------------------- BANNIÈRE PROFIL -------------------- */
+/* Styles par défaut (desktop) */
+.profil-banniere {
+  position: relative;
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.profil-banniere-image {
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px;
+  display: block;
+}
+
+.profil-banniere-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  user-select: none;
+  pointer-events: none;
+}
+
+.profil-banniere-info h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profil-role-badge {
+  margin-top: 4px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profil-banniere {
+    max-height: 220px;
+    margin-bottom: 30px;
+  }
+
+  .profil-banniere-info h1 {
+    font-size: 2.2rem;
+  }
+
+  .profil-role-badge {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profil-banniere {
+    max-height: 180px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+
+  .profil-banniere-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .profil-role-badge {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* -------------------- SECTION GÉNÉRALE -------------------- */
+.section-eleve {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin: 0 auto 40px;
+  max-width: 1000px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+/* -------------------- PÉDAGOGIES (CARROUSEL) -------------------- */
+/* -------------------- PÉDAGOGIES (CARROUSEL) -------------------- */
+.carrousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.carrousel-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;       /* autorise le scroll horizontal */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;    /* espace sous les cartes pour le scroll */
+}
+
+.carrousel-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carrousel-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.carrousel-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.carrousel-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.section-pedagogies .carte {
+  flex: 0 0 auto;
+  width: 220px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.section-pedagogies .carte:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+  font-size: 30px;
+  width: 40px;
+  height: 70px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.scroll-btn.left {
+  left: 8px;
+}
+
+.scroll-btn.right {
+  right: 8px;
+}
+
+
+.section-pedagogies .carte h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+
+.section-pedagogies .carte p {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+.section-pedagogies .carte a {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #2563eb;
+  display: inline-block;
+}
+
+/* -------------------- DEVOIRS -------------------- */
+.section-devoirs {
+  margin-bottom: 30px;
+}
+
+.section-devoirs h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.form-devoir {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-upload {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-upload:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* -------------------- NOTES -------------------- */
+.section-notes h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.notes-table th,
+.notes-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.notes-table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+
+/* -------------------- COURS -------------------- */
+.section-cours {
+  margin-bottom: 30px;
+  max-width: 900px;
+  padding: 10px 0;
+}
+
+.section-cours h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.grille-cours {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* -------------------- TÉMOIGNAGE -------------------- */
+.section-temoignages {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.form-temoignage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-temoignage textarea,
+.form-temoignage input[type="text"] {
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.form-temoignage button {
+  background-color: #1d4ed8;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.form-temoignage button:hover {
+  background-color: #2563eb;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  color: green;
+  font-size: 0.9rem;
+}
+
+/* -------------------- LISTE DE COURS -------------------- */
+h5 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.cours-liste li {
+  color: black;
+  padding: 5px 0;
+}
+
+.carte button {
+  background-color: #34D399;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.section-cours {
+  padding: 2rem 1rem;
+  background-color: #f9fbfd;
+}
+
+.section-cours h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1E2A38;
+}
+
+.grille-cours {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.carte {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(30, 42, 56, 0.1);
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carte:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(30, 42, 56, 0.15);
+}
+
+.carte h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #1E2A38;
+}
+
+.carte p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.carte button,
+.carte .btn-download {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.carte button {
+  background-color: #007ACC;
+  color: white;
+}
+
+.carte button[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.carte .btn-download {
+  margin-top: 0.8rem;
+  background-color: #f0f0f0;
+  color: #007ACC;
+  border: 1px solid #007ACC;
+}
+
+.carte .btn-download:hover {
+  background-color: #007ACC;
+  color: #fff;
+}
+
+.carte em {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+
+.section-temoignages {
+  margin-bottom: 40px; /* moins de marge en bas pour dernière */
+}

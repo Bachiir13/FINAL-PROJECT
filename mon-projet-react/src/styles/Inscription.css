@@ -1,0 +1,47 @@
+.inscriptionPage {
+  padding: 4rem 2rem;
+  background-color: #e0f2fe; /* Fond bleu clair */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inscriptionTitle {
+  font-size: 2rem;
+  color: #1E2A38;
+  margin-bottom: 2rem;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.inscriptionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 16px; /* Plus doux et arrondi */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Légère ombre pour détacher du fond */
+}
+
+.inscriptionForm input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn {
+  background-color: #34D399;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+

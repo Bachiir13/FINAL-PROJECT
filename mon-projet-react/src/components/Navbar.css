@@ -1,0 +1,132 @@
+/* Navbar container */
+.navbar {
+  background-color: #1E2A38;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'PT Sans Caption', sans-serif;
+}
+
+/* Logo */
+.logo {
+  font-weight: 300;
+  font-size: 2.5rem;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #F1F1F1;
+}
+
+/* Navigation links */
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+ul li button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+.link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0%;
+  background-color: #34D399; /* jaune accent */
+  transition: width 0.3s ease-in-out;
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+}
+
+.link:hover::after,
+.link:focus::after {
+  width: 100%;
+}
+
+.link:hover,
+.link:focus {
+  color: #ebe8df;
+}
+
+/* Burger icon */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+
+.bar.open:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.bar.open:nth-child(2) {
+  opacity: 0;
+}
+.bar.open:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Responsive Navigation */
+@media (max-width: 932px) {
+  .burger {
+    display: flex;
+  }
+
+  .navLinks {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1E2A38;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.3s ease;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  .navLinks.active {
+    max-height: 400px;
+    padding: 1rem 0;
+  }
+
+  .navLinks li {
+    margin: 0.7rem 0;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,89 @@
+.formationsPage {
+  padding: 4rem 2rem;
+  background-color: #f5f8fa;
+  min-height: 100vh;
+}
+
+.formationsTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #1E2A38;
+  margin-bottom: 3rem;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.formationList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.formationCard {
+  background-color: white;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.formationCard:hover {
+  transform: translateY(-5px);
+}
+
+.formationImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.formationCard h3 {
+  margin: 1rem;
+  color: #0a74da;
+  font-size: 1.2rem;
+}
+
+.formationCard p {
+  margin: 0 1rem 1.5rem 1rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+.voirButton {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.voirButton:hover {
+  background-color: #2980b9;
+}
+
+.banner-formation {
+  position: relative;
+  width: 100%;            /* pleine largeur */
+  height: 500px;           /* hauteur fixe plus grande, ajuste si besoin */
+  background-image: url('/images/24122660-couverture-et-banniere-de-travail-bureau-avec-gadget-haut-vue-de-table-travail-et-gratuit-espace-pour-texte-avec-ordinateur-ordinateur-portable-carnet-de-notes-cafe-tasse-telephone-et-papier-gratuit-vector.png');
+  background-size: cover;  /* pour remplir tout l’espace, ça va zoomer l’image */
+  background-position: center center; /* centrer l’image */
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 30px;
+}
+
+
+.bannerformationText {
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
