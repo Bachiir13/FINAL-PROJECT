@@ -77,3 +77,53 @@ section ul, section ol {
   border-left: 4px solid #007bff;
   border-radius: 5px;
 }
+/* Responsive pour petits écrans (mobile) */
+@media (max-width: 767px) {
+  .topSection {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .formationImageLarge {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .infosPrincipales {
+    gap: 8px;
+  }
+
+  .inscriptionButton {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1.1em;
+  }
+
+  section {
+    margin-top: 30px;
+  }
+
+  section h2 {
+    font-size: 1.3em;
+  }
+}
+
+/* Tablettes (entre 768px et 899px) */
+@media (min-width: 768px) and (max-width: 932px) {
+  .topSection {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .formationImageLarge {
+    width: 300px;
+  }
+
+  .inscriptionButton {
+    width: auto;
+    padding: 12px 18px;
+  }
+}

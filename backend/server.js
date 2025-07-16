@@ -24,6 +24,7 @@ const userRoutes = require("./routes/user.routes");
 const temoignageRoutes = require("./routes/temoignage.routes");
 const inscriptionFormationRoutes = require("./routes/inscriptionformation.routes");
 const messagesRoutes = require("./routes/messages.routes");
+const noteRoutes = require('./routes/note.routes');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -64,6 +65,7 @@ app.use("/formations", formationRoutes);
 app.use("/inscriptions", inscriptionRoutes);
 app.use("/pedagogies", pedagogieRoutes);
 app.use("/users", userRoutes);
+app.use('/notes', noteRoutes);
 app.use("/temoignages", temoignageRoutes);
 app.use("/inscriptionformations", inscriptionFormationRoutes);
 app.use("/messages", messagesRoutes);

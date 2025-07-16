@@ -132,7 +132,7 @@ const Inscription = () => {
     <main className="inscriptionPage">
       <h1 className="inscriptionTitle">Inscription à TECHECOLE</h1>
       <form className="inscriptionForm" onSubmit={handleSubmit} noValidate>
-        <label htmlFor="nom">Nom</label>
+        <label htmlFor="nom"></label>
         <input
           id="nom"
           type="text"
@@ -207,7 +207,7 @@ const Inscription = () => {
           </p>
         )}
 
-        <label htmlFor="dateNaissance"></label>
+        <label htmlFor="dateNaissance">Date de naissance</label>
         <input
           id="dateNaissance"
           type="date"

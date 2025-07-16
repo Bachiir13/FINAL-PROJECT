@@ -14,6 +14,7 @@ app.use('/formations', require('./routes/formation.routes'));
 app.use('/inscriptions', require('./routes/inscription.routes'));
 app.use('/contacts', require('./routes/contact.routes'));
 app.use('/temoignages', require('./routes/temoignage.routes'));
+app.use ('/notes', require('./routes/note.routes'));
 
 
 app.listen(3001, () => {

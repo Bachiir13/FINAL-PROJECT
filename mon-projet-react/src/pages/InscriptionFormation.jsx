@@ -68,7 +68,7 @@ const InscriptionFormation = () => {
   return (
     <div className="pageInscription">
       <button onClick={() => navigate(-1)} className="backButton">← Retour</button>
-      <h1 className="inscriptionTitle">Demande d’inscription : {formation.nom}</h1>
+      <h1 className="inscriptionTitle">Demande de candidature : {formation.nom}</h1>
 
       <form onSubmit={handleSubmit} className="inscriptionForm">
         {[

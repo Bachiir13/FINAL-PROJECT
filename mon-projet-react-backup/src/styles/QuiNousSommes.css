@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Mukta+Vaani&family=PT+Sans+Caption&display=swap');
+
+.qui-nous-sommes-main-container {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 0 1.5rem 3rem;
+  font-family: 'Mukta Vaani', sans-serif; /* Police par défaut */
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 0.1);
+}
+
+/* Header */
+.qui-nous-sommes-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Titre principal (titre en Josefin Sans) */
+.qui-nous-sommes-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2rem; /* taille titre demandée */
+  color: #1E2A38;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  z-index: 10;
+  position: relative;
+}
+
+/* Image fond */
+.qui-nous-sommes-header-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  opacity: 0.15;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Section intro */
+.qui-nous-sommes-intro {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+/* Texte intro */
+.qui-nous-sommes-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Sous-titre (PT Sans Caption) */
+.qui-nous-sommes-subtitle {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 1.5rem; /* taille sous-titre demandée */
+  color: #1E2A38;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Paragraphes (Mukta Vaani) */
+.qui-nous-sommes-text p {
+  font-family: 'Mukta Vaani', sans-serif;
+  font-size: 0.9rem; /* entre 0.5 et 1 rem comme demandé */
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 1.2rem;
+}
+
+.qui-nous-sommes-highlight {
+  color: #1E2A38;
+  font-weight: 700;
+  background: #dbeafe;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+/* Image équipe */
+.qui-nous-sommes-team-image {
+  flex: 1;
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  object-fit: cover;
+  height: 200px;
+}
+
+/* Section valeurs */
+.qui-nous-sommes-values {
+  background: #e0f2fe;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgb(37 99 235 / 0.2);
+}
+
+.qui-nous-sommes-values-title {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 1.5rem; /* taille sous-titre similaire */
+  color: #1E2A38;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  border-bottom: 3px solid #60a5fa;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.qui-nous-sommes-values-list {
+  list-style: none;
+  padding-left: 0;
+  font-family: 'Mukta Vaani', sans-serif;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.qui-nous-sommes-values-list li {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .qui-nous-sommes-intro {
+    flex-direction: column;
+  }
+  .qui-nous-sommes-team-image {
+    max-width: 100%;
+    height: auto;
+  }
+}

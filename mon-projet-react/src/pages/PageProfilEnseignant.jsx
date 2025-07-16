@@ -85,12 +85,18 @@ const PageProfilEnseignant = () => {
           </div>
         </section>
 
-        <EnseignantSection
-          user={user}
+        <CoursSection
           cours={cours}
           setCours={setCours}
           inscriptions={inscriptions}
           setInscriptions={setInscriptions}
+          setError={setError}
+          user={user}
+        />
+
+        <NotesSection
+          inscriptions={inscriptions}
+          user={user}
           setError={setError}
         />
 
@@ -113,7 +119,7 @@ const PageProfilEnseignant = () => {
   );
 };
 
-const EnseignantSection = ({ user, cours, setCours, inscriptions, setInscriptions, setError }) => {
+const CoursSection = ({ cours, setCours, inscriptions, setInscriptions, setError, user }) => {
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ titre: '', description: '' });
   const [newCours, setNewCours] = useState({ titre: '', description: '', file: null });
@@ -136,8 +142,8 @@ const EnseignantSection = ({ user, cours, setCours, inscriptions, setInscription
 
     try {
       const formData = new FormData();
-      formData.append('titre', newCours.titre);
-      formData.append('description', newCours.description);
+      formData.append('titre', newCours.titre.trim());
+      formData.append('description', newCours.description.trim());
       formData.append('user_id', user.id);
       if (newCours.file) {
         formData.append('fichier', newCours.file);
@@ -194,6 +200,31 @@ const EnseignantSection = ({ user, cours, setCours, inscriptions, setInscription
       setEditingId(null);
       setEditForm({ titre: '', description: '' });
       alert('Cours mis à jour avec succès');
+    } catch (err) {
+      alert(err.message);
+      setError(err.message);
+    }
+  };
+
+  // Nouvelle fonction suppression
+  const deleteCours = async (id) => {
+    if (!window.confirm('Voulez-vous vraiment supprimer ce cours ?')) return;
+
+    try {
+      const res = await fetch(`http://localhost:3001/cours/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Erreur lors de la suppression du cours');
+
+      // Mise à jour locale
+      setCours(prev => prev.filter(c => c.id !== id));
+      setInscriptions(prev => {
+        const copy = { ...prev };
+        delete copy[id];
+        return copy;
+      });
+
+      alert('Cours supprimé avec succès');
     } catch (err) {
       alert(err.message);
       setError(err.message);
@@ -263,6 +294,7 @@ const EnseignantSection = ({ user, cours, setCours, inscriptions, setInscription
                   <h4 className="cours-title">{c.titre}</h4>
                   <p className="cours-description">{c.description}</p>
                   <button onClick={() => startEdit(c)} className="btn btn-primary">Modifier</button>
+                  <button onClick={() => deleteCours(c.id)} className="btn btn-danger" style={{ marginLeft: '10px' }}>Supprimer</button>
 
                   <h5 className="eleves-title">Élèves inscrits :</h5>
                   {inscriptions[c.id]?.length > 0 ? (
@@ -282,6 +314,121 @@ const EnseignantSection = ({ user, cours, setCours, inscriptions, setInscription
           ))}
         </ul>
       )}
+    </section>
+  );
+};
+
+// Section Notes avec ajout obligatoire de max_note
+const NotesSection = ({ inscriptions, user, setError }) => {
+  const [eleves, setEleves] = useState([]);
+  const [selectedEleveId, setSelectedEleveId] = useState('');
+  const [noteValeur, setNoteValeur] = useState('');
+  const [maxNote, setMaxNote] = useState('');
+  const [matiere, setMatiere] = useState('');
+  const [commentaire, setCommentaire] = useState('');
+
+  useEffect(() => {
+    const allEleves = Object.values(inscriptions).flat();
+    const uniqueEleves = Array.from(new Map(allEleves.map(e => [e.id, e])).values());
+    setEleves(uniqueEleves);
+  }, [inscriptions]);
+
+  const submitNote = async (e) => {
+    e.preventDefault();
+    if (!selectedEleveId || !noteValeur || !maxNote || !matiere.trim()) {
+      alert('Merci de remplir tous les champs obligatoires.');
+      return;
+    }
+
+    if (isNaN(noteValeur) || isNaN(maxNote) || Number(noteValeur) < 0 || Number(maxNote) <= 0) {
+      alert('Merci d\'entrer des valeurs numériques valides pour la note et la note maximale.');
+      return;
+    }
+
+    const noteData = {
+      eleve_id: selectedEleveId,
+      enseignant_id: user.id,
+      valeur: Number(noteValeur),
+      max_note: Number(maxNote),
+      matiere: matiere.trim(),
+      ...(commentaire.trim() && { commentaire: commentaire.trim() }),
+    };
+
+    try {
+      const res = await fetch('http://localhost:3001/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(noteData),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.error || 'Erreur lors de la création de la note');
+      }
+
+      alert('Note créée avec succès');
+      setSelectedEleveId('');
+      setNoteValeur('');
+      setMaxNote('');
+      setMatiere('');
+      setCommentaire('');
+    } catch (err) {
+      alert(err.message);
+      setError(err.message);
+    }
+  };
+
+  return (
+    <section className="notes-section">
+      <h2 className="section-title">Ajouter une note</h2>
+      <form onSubmit={submitNote} className="form-ajout-note">
+        <select
+          value={selectedEleveId}
+          onChange={e => setSelectedEleveId(e.target.value)}
+          required
+          className="select-eleve"
+        >
+          <option value="">Sélectionnez un élève</option>
+          {eleves.map(e => (
+            <option key={e.id} value={e.id}>{e.prenom} {e.nom} ({e.email})</option>
+          ))}
+        </select>
+        <input
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder="Valeur de la note"
+          value={noteValeur}
+          onChange={e => setNoteValeur(e.target.value)}
+          required
+          className="input-note"
+        />
+        <input
+          type="number"
+          step="0.01"
+          min="0.01"
+          placeholder="Note maximale"
+          value={maxNote}
+          onChange={e => setMaxNote(e.target.value)}
+          required
+          className="input-max-note"
+        />
+        <input
+          type="text"
+          placeholder="Matière"
+          value={matiere}
+          onChange={e => setMatiere(e.target.value)}
+          required
+          className="input-text"
+        />
+        <textarea
+          placeholder="Commentaire (optionnel)"
+          value={commentaire}
+          onChange={e => setCommentaire(e.target.value)}
+          className="input-textarea"
+        />
+        <button type="submit" className="btn btn-primary">Ajouter la note</button>
+      </form>
     </section>
   );
 };

@@ -93,8 +93,6 @@ const PageAccueil = () => {
           </div>
         </header>
 
-        {/* Le reste de ton contenu inchangé */}
-
         <section className="section sectionCenter" aria-label="Introduction">
           <p>
             Bienvenue à <strong>TECHECOLE</strong>, l’établissement de référence pour les métiers d’avenir dans le numérique.
@@ -105,7 +103,6 @@ const PageAccueil = () => {
         <section className="formationSection" aria-label="Formations les plus demandées">
           <h2 className="sectionTitle">Formations les plus demandées</h2>
           <div className="formationList">
-            {/* Cartes formations */}
             <article className="formationCard">
               <img
                 src="/images/pexels-goumbik-574077.webp"
