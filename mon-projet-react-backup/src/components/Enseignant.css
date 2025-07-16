@@ -1,0 +1,41 @@
+.enseignant-profile {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  max-width: 600px;
+  margin: auto;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.enseignant-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.enseignant-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007acc;
+}
+
+.enseignant-photo-placeholder {
+  width: 100px;
+  height: 100px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.enseignant-details h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  color: #007acc;
+}
+
+.enseignant-details ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}

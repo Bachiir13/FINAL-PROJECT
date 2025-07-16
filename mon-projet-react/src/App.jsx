@@ -16,7 +16,8 @@ import PageDescriptif from './pages/PageDescriptif'; // Assurez-vous que ce fich
 import QuiNousSommes from './pages/QuiNousSommes'; // Assurez-vous que ce fichier existe
 import InscriptionFormation from './pages/InscriptionFormation';
 import VisezExcellence from './pages/Visezexcellence';
-
+import PolitiqueConfidentialite from './pages/Politique';
+import MentionsLegales from './pages/Mention';
 function App() {
   return (
     <Router>
@@ -28,7 +29,7 @@ function App() {
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/inscription-formation" element={<InscriptionFormation />} />
-
+        <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
         <Route path="/profil/enseignant" element={<PageProfilEnseignant />} />
         <Route path="/profil/eleve" element={<PageProfilEleve />} />
         <Route path="/profil/visiteur" element={<PageProfilVisiteur />} />
@@ -37,6 +38,8 @@ function App() {
         <Route path="/formations/:id" element={<PageDescriptif />} />
         <Route path="/qui-sommes-nous" element={<QuiNousSommes />} />
         <Route path="/visez-excellence" element={<VisezExcellence />} />
+         <Route path="/mentions-legales" element={<MentionsLegales />} /> {/* Route Mentions Légales */}
+
       </Routes>
       <Footer />
     </Router>

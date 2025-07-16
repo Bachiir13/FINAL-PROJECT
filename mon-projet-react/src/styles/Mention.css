@@ -1,0 +1,69 @@
+/* MentionsLegales.css */
+
+.mentions-legales-main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+.mentions-legales-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.mentions-legales-subtitle {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #34495e;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 0.3rem;
+}
+
+.mentions-legales-paragraph {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.mentions-legales-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.mentions-legales-list li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.mentions-legales-link {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.mentions-legales-link:hover,
+.mentions-legales-link:focus {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 932px) {
+  .mentions-legales-main {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .mentions-legales-title {
+    font-size: 2rem;
+  }
+
+  .mentions-legales-subtitle {
+    font-size: 1.5rem;
+  }
+}

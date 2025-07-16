@@ -1,0 +1,208 @@
+.page-enseignant {
+  font-family: 'Arial', sans-serif;
+}
+
+.banniere-enseignant {
+  background-image: url('/images/109846711-la-table-de-travail-en-bois-dispose-d-un-ordinateur-et-d-une-tasse-à-café-près-d-un-smartphone 1.png');
+  background-size: contain; /* ⚠️ Affiche toute l’image sans la rogner */
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+
+.titre-banniere {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+.liste-enseignants {
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+
+
+
+
+
+.enseignant-profile {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 2rem;
+  border: 1px solid #ddd;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(30, 42, 56, 0.1);
+  align-items: start;
+}
+
+.enseignant-photo,
+.enseignant-photo-placeholder {
+  grid-column: 1 / 2;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #1E2A38;
+  box-shadow: 0 0 8px rgba(30, 42, 56, 0.15);
+  object-fit: cover;
+}
+
+.enseignant-header {
+  grid-column: 2 / 4;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.enseignant-header h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1E2A38;
+  margin: 0;
+}
+
+.enseignant-details {
+  grid-column: 2 / 3;
+}
+
+.enseignant-details h3 {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1E2A38;
+  border-bottom: 2px solid #007ACC;
+  padding-bottom: 0.2rem;
+  width: fit-content;
+}
+
+.enseignant-details p,
+.enseignant-details ul {
+  font-family: 'Mukta Vaani', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444444;
+  margin: 0.3rem 0 1rem 0;
+  padding-right: 1rem;
+}
+
+.enseignant-cours {
+  grid-column: 3 / 4;
+  font-family: 'Mukta Vaani', sans-serif;
+  font-size: 1rem;
+  color: #444444;
+}
+
+.enseignant-cours h3 {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1E2A38;
+  border-bottom: 2px solid #007ACC;
+  padding-bottom: 0.2rem;
+  width: fit-content;
+}
+
+.page-enseignant {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.page-enseignant h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  text-align: center;
+  color: #1E2A38;
+  margin-bottom: 3rem;
+}
+
+.page-enseignant > section + section {
+  margin-top: 3rem;
+}
+@media (max-width: 932px) {
+  .banniere-enseignant {
+    background-size: cover;
+    height: 80vh;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .titre-banniere {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+
+  .enseignant-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 1rem;
+    margin: 1.5rem 1rem;
+  }
+
+  .enseignant-photo,
+  .enseignant-photo-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+
+  .enseignant-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .enseignant-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .enseignant-details,
+  .enseignant-cours {
+    width: 100%;
+    text-align: left;
+  }
+
+  .enseignant-details h3,
+  .enseignant-cours h3 {
+    font-size: 1.1rem;
+  }
+
+  .page-enseignant {
+    padding: 0 1rem;
+  }
+
+  .page-enseignant h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .liste-enseignants {
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
+}

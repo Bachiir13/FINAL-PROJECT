@@ -485,7 +485,7 @@
 .partnersLogos {
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 10rem;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 2rem;
@@ -629,7 +629,7 @@
   background-color: #2ca374;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 932px) {
   .about-container,
   .about-container.reverse {
     flex-direction: column;
@@ -642,7 +642,7 @@
 }
 
 /* Responsive pour partners et benefits */
-@media (max-width: 600px) {
+@media (max-width: 932px) {
   .partnersLogos {
     gap: 1.5rem;
   }
@@ -655,7 +655,7 @@
 
 
 /* Responsive pour mobile */
-@media (max-width: 700px) {
+@media (max-width: 932px) {
   .contactPromptContent {
     flex-direction: column;
     text-align: center;
@@ -669,7 +669,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 932px) {
   .actualitesSection {
     padding: 2rem 1rem;
   }
@@ -685,7 +685,7 @@
 
 
 /* Responsive */
-@media (min-width: 768px) {
+@media (min-width: 932px) {
   .professorContent {
     flex-direction: row;
     justify-content: space-between;
@@ -704,7 +704,7 @@
 
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 932px) {
   .excellenceLogos {
     gap: 2rem;
   }
@@ -721,7 +721,7 @@
 }
 
 /* Responsive: empile sur mobile */
-@media (max-width: 767px) {
+@media (max-width: 932px) {
   .campusContent {
     flex-direction: column;
     height: auto;
@@ -736,7 +736,7 @@
 
 
 /* Responsive */
-@media (min-width: 768px) {
+@media (min-width: 932px) {
   .formationList {
     flex-direction: row;
     justify-content: space-around;

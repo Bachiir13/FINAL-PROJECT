@@ -1,0 +1,111 @@
+.pageInscription {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: #333;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+.backButton:hover {
+  color: #0056b3;
+}
+
+.noFormationTitle {
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.noFormationText {
+  text-align: center;
+  color: #666;
+}
+
+.inscriptionTitle {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #222;
+}
+
+.inscriptionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.formInput,
+.formTextarea {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+  color: #222;
+  resize: vertical;
+}
+
+.formTextarea {
+  min-height: 120px;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+.submitButton {
+  padding: 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.errorMessage {
+  color: #d93025;
+  font-weight: 700;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+}

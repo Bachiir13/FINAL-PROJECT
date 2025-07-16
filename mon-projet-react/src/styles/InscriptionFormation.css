@@ -109,3 +109,65 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
+@media screen and (max-width: 732px) {
+  .pageInscription {
+    padding: 20px;
+  }
+
+  .inscriptionTitle {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .backButton {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .inscriptionForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .formGroup {
+    width: 100%;
+  }
+
+  .formLabel {
+    font-size: 0.95rem;
+  }
+
+  .formInput,
+  .formTextarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .submitButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}

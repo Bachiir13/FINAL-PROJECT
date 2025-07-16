@@ -1,0 +1,16 @@
+# Base image
+FROM node:18-alpine
+
+# Dossier de travail
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Monter le reste du code via un volume (pas besoin de COPY . .)
+
+# Lancer le serveur de développement
+CMD ["npm", "run", "dev"]

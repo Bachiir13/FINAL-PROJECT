@@ -1,0 +1,796 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Chicle&family=Gravitas+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jacques+Francois&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Julius+Sans+One&family=Luckiest+Guy&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+
+.mainContent {
+  background-color: #f5f8fa;
+  min-height: 80vh;
+  font-family: Mukta Vaani, sans-serif;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.banner {
+  background-image: url('../../public/images/pexels-divinetechygirl-1181325.webp'); /* chemin depuis le dossier public */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 16rem 2rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.bannerTitle {
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+}
+
+.bannerText {
+  font-size: 1.5rem;
+  font-family: 'PT Sans Caption', sans-serif;
+}
+
+.section {
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.sectionTitle {
+  color: #1E2A38;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-family: josefin Sans, sans-serif;
+}
+
+.sectionCenter {
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #34D399;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.btn:hover {
+  background-color: #2ca374;
+}
+
+.formationSection {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.formationSection h2 {
+  font-size: 2rem;
+  color: #1E2A38;
+  margin-bottom: 2rem;
+  font-family: Josefin Sans, sans-serif;
+  font-weight: bold;
+}
+
+.formationList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.formationCard {
+  background-color: #f5f8fa;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.formationCard h3 {
+  color: #1E2A38;
+  margin-bottom: 1rem;
+  font-family: PT Sans Caption, sans-serif;
+}
+
+.formationCard p {
+  font-family: 'Mukta Vaani', sans-serif;
+}
+
+.formationBtnContainer {
+  margin-top: 2rem;
+}
+
+.formationImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+.campusSection {
+  background-color: #fff;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.campusContent {
+  display: flex;
+  gap: 2rem;
+  align-items: stretch; /* alignement hauteur */
+  height: 400px; /* hauteur fixe à ajuster */
+}
+
+.campusImages {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 2rem;
+}
+
+.campusImage {
+  width: 100%;
+  height: 50%; /* moitié de la hauteur parent */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.campusText {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  color: #1E2A38;
+  padding: 0 1rem;
+}
+
+.campusText h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.campusText p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  
+}
+
+.excellenceSection {
+  width: 100%;
+  max-width: 1280px;   /* limite la largeur max */
+  margin: 0 auto;      /* centre horizontalement */
+  background-color: #1E2A38; /* bleu vif */
+  color: white;
+  padding: 3rem 1rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.excellenceTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+}
+
+.excellenceLogos {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.pourquoi-nous-choisir {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+}
+
+.pourquoi-nous-choisir .contenu {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.pourquoi-nous-choisir ul {
+  max-width: 100%;
+  margin-top: 1rem;
+  padding-left: 10.5rem; /* décalage plus fort vers la droite */
+  list-style-type: disc;
+  text-align: left;
+}
+
+
+.pourquoi-nous-choisir .image-container {
+  flex: 1 1 300px;
+  max-width: 500px;
+}
+
+.pourquoi-nous-choisir .image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 120px;
+}
+
+.logoImg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+
+.logoItem p {
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+}
+
+.professorSection {
+  background-color: #f5f8fa;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
+}
+
+.professorContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.professorText {
+  max-width: 600px;
+  text-align: center;
+}
+
+.professorText h2 {
+  font-size: 2rem;
+  color: #1E2A38;
+  margin-bottom: 1rem;
+}
+
+.professorText p {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.professorImageContainer {
+  max-width: 600px;
+  width: 100%;
+}
+
+.professorImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.professorBtnContainer {
+  margin-top: 2rem;
+}
+
+.professorBtn {
+  display: inline-block;
+  background-color: #34D399;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.professorBtn:hover {
+  background-color: #2ca374;
+}
+
+/* Section Actualités - Style moderne et élégant */
+.actualitesSection {
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #f0f4ff 0%, #d9e4ff 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.15);
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.actualitesSection .sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0a2342;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.actualitesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.actualiteCard {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(10, 35, 66, 0.12);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.actualiteCard:hover {
+  box-shadow: 0 12px 25px rgba(10, 35, 66, 0.25);
+  transform: translateY(-8px);
+}
+
+.actualiteCard h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #007bff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.actualiteCard p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #3a3a3a;
+  flex-grow: 1;
+}
+
+.actualiteCard .actualiteDate {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #666666;
+  font-style: italic;
+  text-align: right;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.contactPromptSection {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 3rem 1.5rem;
+  text-align: left; /* à gauche car on aura image+texte côte à côte */
+  margin-top: 3rem;
+  border-radius: 12px;
+}
+
+.contactPromptContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contactPromptImage {
+  width: 450px;
+  height: auto;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.contactText h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contactText p {
+  font-family: 'Mukta Vaani', sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #4a4a4a
+}
+
+.btnContact {
+  background-color: #34D399;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'PT Sans Caption', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btnContact:hover {
+  background-color: #2ca374;
+  color: white;
+}
+
+/* Nouveaux styles ajoutés */
+
+/* Section Pourquoi choisir */
+.whyChooseSection {
+  background-color: #e6f4f1;
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  font-family: 'Mukta Vaani', sans-serif;
+  color: #1E2A38;
+}
+
+.whyChooseText {
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.whyChooseList {
+  list-style-type: disc;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.whyChooseList li {
+  margin-bottom: 1rem;
+}
+
+/* Partenaires */
+.partnersSection {
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem auto;
+}
+
+.partnersLogos {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.partnerLogo {
+  max-width: 120px;
+  max-height: 60px;
+  object-fit: contain;
+  filter: grayscale(0.2);
+  transition: filter 0.3s ease;
+  cursor: pointer;
+}
+
+.partnerLogo:hover {
+  filter: grayscale(0);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Avantages étudiants */
+.studentBenefitsSection {
+  background-color: #f0faf8;
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  font-family: 'Mukta Vaani', sans-serif;
+  color: #1E2A38;
+}
+
+.benefitsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.benefitItem {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.benefitItem:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.benefitItem h3 {
+  margin-bottom: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  color: #34D399;
+  font-size: 1.3rem;
+}
+
+.benefitItem p {
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Petits ajustements pour le btn hover, plus visible */
+.btn:hover {
+  background-color: #2ca374; /* plus foncé pour contraste */
+  color: white;
+}
+
+/* Ajout d'une transition légère sur .btnContact déjà présent */
+.btnContact {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-section {
+  background-color: #f8f9fa;
+  padding: 4rem 2rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.about-container.reverse {
+  flex-direction: row-reverse;
+}
+
+.about-image {
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+  flex: 1 1 400px;
+  text-align: left;
+}
+
+.about-content h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1E2A38;
+}
+
+.about-content p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #4a4a4a;
+}
+
+.about-content button {
+  background-color: #34D399;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.about-content button:hover {
+  background-color: #2ca374;
+}
+
+@media (max-width: 768px) {
+  .about-container,
+  .about-container.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+}
+
+/* Responsive pour partners et benefits */
+@media (max-width: 600px) {
+  .partnersLogos {
+    gap: 1.5rem;
+  }
+  
+  .partnerLogo {
+    max-width: 90px;
+    max-height: 45px;
+  }
+}
+
+
+/* Responsive pour mobile */
+@media (max-width: 700px) {
+  .contactPromptContent {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .contactPromptImage {
+    width: 100px;
+    margin-bottom: 1rem;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+  .actualitesSection {
+    padding: 2rem 1rem;
+  }
+  
+  .actualitesSection .sectionTitle {
+    font-size: 2rem;
+  }
+  
+  .actualitesList {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Responsive */
+@media (min-width: 768px) {
+  .professorContent {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .professorText {
+    flex: 1;
+  }
+
+  .professorImageContainer {
+    flex: 1;
+    padding-left: 2rem;
+  }
+}
+
+
+/* Responsive */
+@media (max-width: 600px) {
+  .excellenceLogos {
+    gap: 2rem;
+  }
+  .logoItem {
+    max-width: 80px;
+  }
+  .logoImg {
+    width: 48px;
+    height: 48px;
+  }
+  .excellenceTitle {
+    font-size: 2rem;
+  }
+}
+
+/* Responsive: empile sur mobile */
+@media (max-width: 767px) {
+  .campusContent {
+    flex-direction: column;
+    height: auto;
+  }
+  .campusImages, .campusText {
+    width: 100%;
+  }
+  .campusImage {
+    height: 200px; /* taille fixe mobile */
+  }
+}
+
+
+/* Responsive */
+@media (min-width: 768px) {
+  .formationList {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .formationCard {
+    width: 30%;
+  }
+  
+}
+
+
+.cookieConsentBanner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #222;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+}
+.cookieConsentBanner a {
+  color: #00d1b2;
+  text-decoration: underline;
+}
+.cookieConsentBanner .btn {
+  background: #00b894;
+  border: none;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.excellenceLogos .logoItem {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.excellenceLogos .logoItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.partnerLogo {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.partnerLogo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2) drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+}

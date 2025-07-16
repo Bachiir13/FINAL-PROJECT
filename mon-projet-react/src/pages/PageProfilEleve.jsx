@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
 import '../styles/PageProfilEleve.css';
+import { db } from '../firebase/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const BASE_URL = 'http://localhost:3001';
 
 const PageProfilEleve = () => {
   const { user } = useUser();
-
   const [cours, setCours] = useState([]);
   const [pedagogies, setPedagogies] = useState([]);
   const [inscriptions, setInscriptions] = useState(new Set());
@@ -24,14 +25,18 @@ const PageProfilEleve = () => {
           fetch(`${BASE_URL}/cours`),
           fetch(`${BASE_URL}/pedagogies`),
           fetch(`${BASE_URL}/inscriptions/eleve/${user.id}`),
-          fetch(`${BASE_URL}/notes/eleve/${user.id}`)
+          fetch(`${BASE_URL}/notes/eleve/${user.id}`),
         ]);
 
+        if (!coursRes.ok || !pedagoRes.ok || !inscRes.ok || !notesRes.ok) {
+          throw new Error('Erreur lors du chargement des données');
+        }
+
         const [coursData, pedagoData, inscData, notesData] = await Promise.all([
-          coursRes.ok ? coursRes.json() : [],
-          pedagoRes.ok ? pedagoRes.json() : [],
-          inscRes.ok ? inscRes.json() : [],
-          notesRes.ok ? notesRes.json() : []
+          coursRes.json(),
+          pedagoRes.json(),
+          inscRes.json(),
+          notesRes.json(),
         ]);
 
         setCours(coursData);
@@ -142,12 +147,10 @@ const PageProfilEleve = () => {
               <div className="carte" key={index}>
                 <h3>{item.titre}</h3>
                 <p>{item.description}</p>
-
-                {/* Lien téléchargement */}
-                <a 
-                  href={item.fichier_url} 
-                  download 
-                  target="_blank" 
+                <a
+                  href={item.fichier_url}
+                  download
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   M'y rendre
@@ -172,15 +175,19 @@ const PageProfilEleve = () => {
           <table className="notes-table">
             <thead>
               <tr>
-                <th>Cours</th>
+                <th>Matière</th>
                 <th>Note</th>
+                <th>Commentaire</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
               {notes.map(n => (
                 <tr key={n.id}>
-                  <td>{n.titre_cours}</td>
-                  <td>{n.note}</td>
+                  <td>{n.titre_cours || n.matiere}</td>
+                  <td>{`${n.valeur}/${n.max_note}`}</td>
+                  <td>{n.commentaire || '-'}</td>
+                  <td>{new Date(n.date_note).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
@@ -196,7 +203,6 @@ const PageProfilEleve = () => {
   );
 };
 
-// === Formulaire Devoir ===
 const FormDevoir = ({ eleveId }) => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -246,7 +252,6 @@ const FormDevoir = ({ eleveId }) => {
   );
 };
 
-// === Formulaire Témoignage ===
 const FormTemoignage = ({ eleve }) => {
   const [message, setMessage] = useState('');
   const [promo, setPromo] = useState('');
@@ -266,24 +271,20 @@ const FormTemoignage = ({ eleve }) => {
     setSuccess(false);
 
     try {
-      const res = await fetch(`${BASE_URL}/temoignages`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nom: `${eleve.prenom} ${eleve.nom}`,
-          promo,
-          message,
-          photo_url: null  // On ne récupère plus de photo_url
-        })
+      await addDoc(collection(db, 'temoignages'), {
+        nom: `${eleve.prenom} ${eleve.nom}`,
+        promo,
+        message,
+        photo_url: null,
+        date: serverTimestamp(),
       });
-
-      if (!res.ok) throw new Error("Erreur lors de l'envoi du témoignage");
 
       setMessage('');
       setPromo('');
       setSuccess(true);
     } catch (err) {
-      setError(err.message);
+      setError("Erreur lors de l'envoi du témoignage");
+      console.error(err);
     } finally {
       setLoading(false);
     }

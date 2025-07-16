@@ -7,14 +7,15 @@
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
   script-src 'self' https://www.google.com https://www.gstatic.com;
+  connect-src 'self' http://localhost:3001 https://*.googleapis.com https://*.firebaseio.com https://www.google.com https://www.gstatic.com;
   style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' data: https://www.google.com https://www.gstatic.com https://randomuser.me;
   frame-src https://www.google.com https://www.gstatic.com;
-  connect-src 'self' http://localhost:3001 https://www.google.com https://www.gstatic.com;
   object-src 'none';
   base-uri 'self';
 ">
+
 
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

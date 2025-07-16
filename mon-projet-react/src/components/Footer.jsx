@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -8,10 +9,10 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Navigation</h3>
           <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/inscription">Inscription</a></li>
-            <li><a href="/connexion">Connexion</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><Link to="/">Accueil</Link></li>
+            <li><Link to="/inscription">Inscription</Link></li>
+            <li><Link to="/connexion">Connexion</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
 
@@ -28,9 +29,17 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Réseaux sociaux</h3>
           <ul>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <div className="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><Link to="/mentions-legales">Mentions légales</Link></li>
+            <li><Link to="/politique-confidentialite">Politique de confidentialité</Link></li>
           </ul>
         </div>
       </div>
