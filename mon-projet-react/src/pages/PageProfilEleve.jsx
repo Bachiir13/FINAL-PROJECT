@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useUser } from '../contexts/UserContext';
-import '../styles/PageProfilEleve.css';
-import { db } from '../firebase/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// src/pages/PageProfilEleve.jsx
+import React, { useEffect, useState, useRef } from "react";
+import { useUser } from "../contexts/UserContext";
+import "../styles/PageProfilEleve.css";
+import { db } from "../firebase/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import TemoignagesSlider from "../components/TemoignagesSlider";
 
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = "http://localhost:3001";
 
 const PageProfilEleve = () => {
   const { user } = useUser();
@@ -14,10 +16,14 @@ const PageProfilEleve = () => {
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState(null);
   const [loadingInscription, setLoadingInscription] = useState(null);
+  const [avisMessage, setAvisMessage] = useState("");
+  const [avisNote, setAvisNote] = useState(5);
+  const [loadingAvis, setLoadingAvis] = useState(false);
   const carrouselRef = useRef(null);
 
+  // Récupération des données
   useEffect(() => {
-    if (!user || user.role !== 'eleve') return;
+    if (!user || user.role !== "eleve") return;
 
     const fetchData = async () => {
       try {
@@ -29,7 +35,7 @@ const PageProfilEleve = () => {
         ]);
 
         if (!coursRes.ok || !pedagoRes.ok || !inscRes.ok || !notesRes.ok) {
-          throw new Error('Erreur lors du chargement des données');
+          throw new Error("Erreur lors du chargement des données");
         }
 
         const [coursData, pedagoData, inscData, notesData] = await Promise.all([
@@ -57,15 +63,15 @@ const PageProfilEleve = () => {
     setError(null);
     try {
       const res = await fetch(`${BASE_URL}/inscriptions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ eleve_id: user.id, cours_id: coursId }),
       });
 
       if (!res.ok) throw new Error("Erreur lors de l'inscription");
 
       setInscriptions(prev => new Set(prev).add(coursId));
-      alert('Inscription réussie');
+      alert("Inscription réussie");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -73,12 +79,36 @@ const PageProfilEleve = () => {
     }
   };
 
+  const handlePostAvis = async (e) => {
+    e.preventDefault();
+    if (!avisMessage.trim()) return;
+
+    setLoadingAvis(true);
+    setError(null);
+    try {
+      await addDoc(collection(db, "temoignages"), {
+        nom: `${user.prenom} ${user.nom}`,
+        promo: user.promo || "",
+        message: avisMessage,
+        note: avisNote,
+        createdAt: serverTimestamp(),
+      });
+      setAvisMessage("");
+      setAvisNote(5);
+    } catch (err) {
+      console.error(err);
+      setError("Impossible de poster l'avis. Vérifie tes permissions Firestore.");
+    } finally {
+      setLoadingAvis(false);
+    }
+  };
+
   const scrollCarrousel = (distance) => {
-    carrouselRef.current?.scrollBy({ left: distance, behavior: 'smooth' });
+    carrouselRef.current?.scrollBy({ left: distance, behavior: "smooth" });
   };
 
   if (!user) return <p>Chargement...</p>;
-  if (user.role !== 'eleve') return <p>Accès interdit</p>;
+  if (user.role !== "eleve") return <p>Accès interdit</p>;
 
   return (
     <div className="profil-page">
@@ -92,52 +122,40 @@ const PageProfilEleve = () => {
 
       {error && <p className="error-message">{error}</p>}
 
+      {/* Section Cours */}
       <section className="section-cours">
         <h2>Cours disponibles</h2>
-        {cours.length === 0 ? (
-          <p>Aucun cours disponible.</p>
-        ) : (
+        {cours.length === 0 ? <p>Aucun cours disponible.</p> :
           <div className="grille-cours">
             {cours.map(c => {
               const isInscrit = inscriptions.has(c.id);
               const hasFile = c.fichier && c.fichier.trim() !== "";
-
               return (
                 <div className="carte" key={c.id}>
                   <h3>{c.titre}</h3>
                   <p>{c.description}</p>
-
                   {isInscrit ? (
                     <>
                       <button disabled>Inscrit</button>
                       {hasFile ? (
-                        <a
-                          href={`${BASE_URL}/uploads/${c.fichier}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-download"
-                        >
+                        <a href={`${BASE_URL}/uploads/${c.fichier}`} target="_blank" rel="noopener noreferrer">
                           Pièce jointe : {c.fichier}
                         </a>
-                      ) : (
-                        <p><em>Aucun fichier publié pour ce cours.</em></p>
-                      )}
+                      ) : <p><em>Aucun fichier publié.</em></p>}
                     </>
                   ) : (
-                    <button
-                      onClick={() => handleInscription(c.id)}
-                      disabled={loadingInscription === c.id}
-                    >
-                      {loadingInscription === c.id ? 'Inscription...' : "S'inscrire"}
+                    <button onClick={() => handleInscription(c.id)} disabled={loadingInscription === c.id}>
+                      {loadingInscription === c.id ? "Inscription..." : "S'inscrire"}
                     </button>
                   )}
                 </div>
               );
             })}
           </div>
-        )}
+        }
       </section>
 
+      {/* Section Pédagogies */}
       <section className="section-pedagogies">
         <h2>Mes pédagogies</h2>
         <div className="carrousel-wrapper">
@@ -147,14 +165,7 @@ const PageProfilEleve = () => {
               <div className="carte" key={index}>
                 <h3>{item.titre}</h3>
                 <p>{item.description}</p>
-                <a
-                  href={item.fichier_url}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  M'y rendre
-                </a>
+                <a href={item.fichier_url} download target="_blank" rel="noopener noreferrer">M'y rendre</a>
               </div>
             ))}
           </div>
@@ -162,16 +173,10 @@ const PageProfilEleve = () => {
         </div>
       </section>
 
-      <section className="section-devoirs">
-        <h3>Déposer un devoir</h3>
-        <FormDevoir eleveId={user.id} />
-      </section>
-
+      {/* Section Notes */}
       <section className="section-notes">
         <h3>Mes notes</h3>
-        {notes.length === 0 ? (
-          <p>Aucune note disponible</p>
-        ) : (
+        {notes.length === 0 ? <p>Aucune note disponible</p> :
           <table className="notes-table">
             <thead>
               <tr>
@@ -186,131 +191,42 @@ const PageProfilEleve = () => {
                 <tr key={n.id}>
                   <td>{n.titre_cours || n.matiere}</td>
                   <td>{`${n.valeur}/${n.max_note}`}</td>
-                  <td>{n.commentaire || '-'}</td>
+                  <td>{n.commentaire || "-"}</td>
                   <td>{new Date(n.date_note).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
+        }
       </section>
 
+      {/* Section Témoignages */}
       <section className="section-temoignages">
-        <h3>Laisser un témoignage</h3>
-        <FormTemoignage eleve={user} />
+        <h3>Témoignages</h3>
+
+        {/* Formulaire pour poster un avis */}
+        <form onSubmit={handlePostAvis} className="form-temoignage">
+          <textarea
+            placeholder="Votre avis"
+            value={avisMessage}
+            onChange={e => setAvisMessage(e.target.value)}
+            required
+          />
+          <label>
+            Note :
+            <select value={avisNote} onChange={e => setAvisNote(Number(e.target.value))}>
+              {[1,2,3,4,5].map(n => <option key={n} value={n}>{n}</option>)}
+            </select>
+          </label>
+          <button type="submit" disabled={loadingAvis}>
+            {loadingAvis ? "Publication..." : "Poster l'avis"}
+          </button>
+        </form>
+
+        {/* Slider des témoignages */}
+        <TemoignagesSlider />
       </section>
     </div>
-  );
-};
-
-const FormDevoir = ({ eleveId }) => {
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const fileInputRef = useRef(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!file) {
-      setError('Veuillez sélectionner un fichier');
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const formData = new FormData();
-      formData.append('eleve_id', eleveId);
-      formData.append('devoir', file);
-
-      const res = await fetch(`${BASE_URL}/devoirs`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error("Erreur lors de l'envoi du devoir");
-
-      alert('Devoir déposé avec succès');
-      setFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <form className="form-devoir" onSubmit={handleSubmit}>
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} ref={fileInputRef} />
-      {error && <p className="error-message">{error}</p>}
-      <button type="submit" className="btn-upload" disabled={loading}>
-        {loading ? 'Envoi...' : 'Envoyer'}
-      </button>
-    </form>
-  );
-};
-
-const FormTemoignage = ({ eleve }) => {
-  const [message, setMessage] = useState('');
-  const [promo, setPromo] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!message.trim()) {
-      setError("Le message est requis");
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-
-    try {
-      await addDoc(collection(db, 'temoignages'), {
-        nom: `${eleve.prenom} ${eleve.nom}`,
-        promo,
-        message,
-        photo_url: null,
-        date: serverTimestamp(),
-      });
-
-      setMessage('');
-      setPromo('');
-      setSuccess(true);
-    } catch (err) {
-      setError("Erreur lors de l'envoi du témoignage");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <form className="form-temoignage" onSubmit={handleSubmit}>
-      <textarea
-        placeholder="Votre témoignage"
-        value={message}
-        onChange={e => setMessage(e.target.value)}
-        rows={4}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Promo (ex: 2025)"
-        value={promo}
-        onChange={e => setPromo(e.target.value)}
-      />
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">Témoignage envoyé !</p>}
-      <button type="submit" disabled={loading}>
-        {loading ? 'Envoi...' : 'Envoyer'}
-      </button>
-    </form>
   );
 };
 
