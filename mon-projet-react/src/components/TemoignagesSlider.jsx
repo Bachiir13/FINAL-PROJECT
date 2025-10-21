@@ -1,48 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { db } from "../firebase/firebase";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import "./TemoignagesSlider.css";
-
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase"; // ajuste le chemin si nécessaire
 
 const TemoignagesSlider = () => {
   const [temoignages, setTemoignages] = useState([]);
 
   useEffect(() => {
-    const fetchTemoignages = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "temoignages")); // ou "reviews" selon ta base
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setTemoignages(data);
-      } catch (error) {
-        console.error("Erreur lors du chargement des témoignages :", error);
-      }
-    };
-
-    fetchTemoignages();
+    const q = query(collection(db, "temoignages"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, snapshot => {
+      setTemoignages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
-    <section className="temoignagesSection">
-      <h2 className="sectionTitle">TÉMOIGNAGES</h2>
-      <div className="slider">
-        {temoignages.length === 0 ? (
-          <p>Aucun témoignage pour le moment.</p>
-        ) : (
-          temoignages.map(({ id, nom, promo, message, photo_url }) => (
+    <div className="temoignagesSection">
+      <h2 className="temoignagesTitle">Témoignages de nos élèves</h2>
+
+      {temoignages.length === 0 ? (
+        <p className="noTemoignages">Aucun témoignage pour le moment.</p>
+      ) : (
+        <div className="temoignagesSlider">
+          {temoignages.map(({ id, nom, promo, message, note }) => (
             <div key={id} className="temoignageCard">
-              {photo_url && (
-                <img src={photo_url} alt={nom} className="temoignagePhoto" />
-              )}
               <p className="temoignageMessage">"{message}"</p>
-              <p className="temoignageNom">{nom} - Promo {promo}</p>
+              <p className="temoignageNom">- {nom} {promo && `(${promo})`}</p>
+              <p className="temoignageNote">
+                {Array.from({ length: note }, (_, i) => '⭐').join('')} {note}/5
+              </p>
             </div>
-          ))
-        )}
-      </div>
-    </section>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

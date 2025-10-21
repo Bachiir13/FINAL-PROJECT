@@ -1,20 +1,37 @@
-const express = require('express');
+// backend/routes/temoignages.js
+const express = require("express");
 const router = express.Router();
-const temoignageController = require('../controllers/temoignage.controller');
+const admin = require("firebase-admin");
 
-// Récupérer tous les témoignages
-router.get('/', temoignageController.getAll);
+// Assure-toi d'avoir initialisé Firebase Admin
+// admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
-// Récupérer un témoignage par id
-router.get('/:id', temoignageController.getById);
+const db = admin.firestore();
 
-// Créer un témoignage
-router.post('/', temoignageController.create);
+router.post("/temoignages", async (req, res) => {
+  try {
+    const { eleveId, nom, promo, message, note } = req.body;
 
-// Mettre à jour un témoignage
-router.put('/:id', temoignageController.update);
+    // Vérifier la session / utilisateur connecté via PostgreSQL
+    if (!req.session || !req.session.user || req.session.user.id !== eleveId) {
+      return res.status(401).json({ error: "Utilisateur non autorisé" });
+    }
 
-// Supprimer un témoignage
-router.delete('/:id', temoignageController.delete);
+    // Ajouter l'avis dans Firestore
+    await db.collection("temoignages").add({
+      eleveId,
+      nom,
+      promo: promo || null,
+      message,
+      note,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    res.status(200).json({ message: "Avis posté avec succès" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Impossible de poster l'avis" });
+  }
+});
 
 module.exports = router;
