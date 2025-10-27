@@ -1,9 +1,9 @@
-# Stage 1: build React app
+# Stage 1: Build React app
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Copier package.json + package-lock.json
+# Copier package.json et package-lock.json
 COPY package*.json ./
 
 # Installer les dépendances
@@ -12,13 +12,13 @@ RUN npm install
 # Copier le reste du projet
 COPY . .
 
-# Construire l'app
+# Construire l'app React
 RUN npm run build
 
-# Stage 2: Nginx
+# Stage 2: Nginx pour servir l'app
 FROM nginx:alpine
 
-# Créer un dossier pour le certificat auto-signé
+# Créer le dossier pour le certificat auto-signé
 RUN mkdir -p /etc/nginx/certs
 
 # Générer un certificat auto-signé pour localhost
@@ -29,13 +29,13 @@ RUN apk add --no-cache openssl \
        -keyout /etc/nginx/certs/server.key \
        -out /etc/nginx/certs/server.crt
 
-# Copier le build Vite vers Nginx
+# Copier le build React dans Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copier la config Nginx HTTPS
+# Copier la configuration Nginx HTTPS
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Exposer port 443
+# Exposer le port HTTPS
 EXPOSE 443
 
 # Lancer Nginx
