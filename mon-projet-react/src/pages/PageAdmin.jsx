@@ -36,7 +36,7 @@ const Admin = () => {
   // Fonction générique de récupération d'entités (depuis l'API locale)
   const fetchEntity = async (endpoint, setter) => {
     try {
-      const res = await fetch(`http://localhost:3001/${endpoint}`);
+      const res = await fetch(`http://localhost:3002/${endpoint}`);
       const data = await res.json();
       setter(data);
     } catch (e) {

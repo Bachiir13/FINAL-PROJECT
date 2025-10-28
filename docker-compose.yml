@@ -1,34 +1,45 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
+    container_name: postgres
+    restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: projetfinal
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   backend:
-    build:
-      context: ./backend
+    build: ./backend
+    container_name: backend
+    restart: always
     ports:
-      - "3002:3001"
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      NODE_ENV: development
+      DATABASE_URL: postgres://${PGUSER}:${PGPASSWORD}@db:5432/${PGDATABASE}
+      RECAPTCHA_SECRET: ${RECAPTCHA_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      SERVER_URL: ${SERVER_URL}
     depends_on:
       - db
-    environment:
-      - NODE_ENV=production
 
   frontend:
-    build:
-      context: ./mon-projet-react
+    build: ./mon-projet-react
+    container_name: frontend
+    restart: always
     ports:
-      - "443:443"   # HTTPS
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./mon-projet-react/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro
     depends_on:
       - backend
 
 volumes:
-  postgres_data:
+  pgdata:

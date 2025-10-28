@@ -8,7 +8,7 @@ const Formations = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/formations')
+    axios.get('http://localhost:3002/formations')
       .then(res => setFormations(res.data))
       .catch(err => console.error('Erreur chargement formations:', err));
   }, []);

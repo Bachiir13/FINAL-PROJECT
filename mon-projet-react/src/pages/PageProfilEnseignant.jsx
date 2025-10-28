@@ -16,7 +16,7 @@ const PageProfilEnseignant = () => {
     if (!user || user.role !== 'enseignant') return;
     setError(null);
 
-    fetch(`http://localhost:3001/cours/enseignant/${user.id}`)
+    fetch(`http://localhost:3002/cours/enseignant/${user.id}`)
       .then(res => {
         if (!res.ok) throw new Error('Erreur chargement cours');
         return res.json();

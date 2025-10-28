@@ -70,7 +70,7 @@ const Contact = () => {
 
     try {
       await axios.post(
-        "http://localhost:3001/contacts",
+        "http://localhost:3002/contacts",
         {
           nom: formData.nom.trim(),
           email: formData.email.trim(),

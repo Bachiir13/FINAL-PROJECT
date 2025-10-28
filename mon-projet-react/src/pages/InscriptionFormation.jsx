@@ -51,7 +51,7 @@ const InscriptionFormation = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:3001/inscriptions', {
+      await axios.post('http://localhost:3002/inscriptions', {
         ...formData,
         formation_id: formation.id,
       });

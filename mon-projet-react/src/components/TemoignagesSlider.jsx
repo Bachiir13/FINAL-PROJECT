@@ -9,7 +9,11 @@ const TemoignagesSlider = () => {
   useEffect(() => {
     const q = query(collection(db, "temoignages"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, snapshot => {
-      setTemoignages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      // Sécurité : toujours renvoyer un tableau
+      const data = Array.isArray(snapshot?.docs)
+        ? snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        : [];
+      setTemoignages(data);
     });
     return () => unsubscribe();
   }, []);
@@ -27,7 +31,7 @@ const TemoignagesSlider = () => {
               <p className="temoignageMessage">"{message}"</p>
               <p className="temoignageNom">- {nom} {promo && `(${promo})`}</p>
               <p className="temoignageNote">
-                {Array.from({ length: note }, (_, i) => '⭐').join('')} {note}/5
+                {Array.from({ length: note || 0 }, () => '⭐').join('')} {note || 0}/5
               </p>
             </div>
           ))}

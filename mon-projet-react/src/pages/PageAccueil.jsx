@@ -29,7 +29,7 @@ const PageAccueil = () => {
 
   // Chargement des actualités
   useEffect(() => {
-    fetch('http://localhost:3001/actualites')
+    fetch('http://localhost:3002/actualites')
       .then(res => res.json())
       .then(data => setActualites(data))
       .catch(err => console.error('Erreur chargement actualités :', err));

@@ -6,7 +6,7 @@ import { db } from "../firebase/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import TemoignagesSlider from "../components/TemoignagesSlider";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3002";
 
 const PageProfilEleve = () => {
   const { user } = useUser();
